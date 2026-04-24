@@ -1,5 +1,5 @@
-# Proje Çıktıları
-## 1.1 'Kobiye Destek' tarifesine abone olan müşterileri listeleyin.
+# Query Output
+## 1.1 List the customers who are subscribed to the 'Kobiye Destek' tariff.
 |CUSTOMER_ID|CUSTOMER_NAME|SIGNUP_DATE|TARIFF_NAME|
 |-----------|-------------|-----------|-----------|
 |8970|Ahmet|2027-07-01 00:00:00.000|Kobiye Destek|
@@ -2489,7 +2489,7 @@
 
 
 
-##1.2 Bu tarifeye abone olan en yeni müşteriyi bulun.
+## 1.2 Find the newest customer who subscribed to this tariff.
 |CUSTOMER_ID|CUSTOMER_NAME|SIGNUP_DATE|TARIFF_ID|TARIFF_NAME|
 |-----------|-------------|-----------|---------|-----------|
 |8798|Hatice|2028-07-03 00:00:00.000|4|Kobiye Destek|
@@ -2497,7 +2497,7 @@
 
 
 
-##2.1 Müşteriler arasındaki tarife dağılımlarını buluyoruz.
+## 2.1 Find the distribution of tariffs among the customers.
 |TARIFF_NAME|COUNT_USERS|
 |-----------|-----------|
 |Genç Dinamik|2527|
@@ -2506,7 +2506,7 @@
 |Kobiye Destek|2483|
 
 
-##3.1 Kayıt olan en eski müşterileri belirleyin.
+## 3.1 Identify the earliest customers to sign up.
 |CUSTOMER_ID|CUSTOMER_NAME|CITY|SIGNUP_DATE|
 |-----------|-------------|----|-----------|
 |9021|Kübra|GİRESUN|2025-01-05 00:00:00.000|
@@ -2537,7 +2537,8 @@
 |1917|Ayşegül|HAKKARİ|2025-01-05 00:00:00.000|
 |875|Özlem|AFYONKARAHİSAR|2025-01-05 00:00:00.000|
 
-##3.2 Bu ilk müşterilerin farklı şehirlerdeki dağılımını ve her şehir için toplam sayıyı bulun.
+
+## 3.2 Find the distribution of these earliest customers across different cities, including the total count for each city.
 |CITY|CUSTOMER_COUNT|
 |----|--------------|
 |BATMAN|2|
@@ -2566,7 +2567,7 @@
 |BARTIN|1|
 
 
-##4.1 Bir ekleme hatası meydana gelmiş ve bazı müşterilerin aylık kayıtları eksiktir. Bu eksik müşterilerin kimliklerini (ID) belirleyin. 
+## 4.1 An entry error occurred, and some customers' monthly records are missing. Identify the ID's of these missing customers.
 |CUSTOMER_ID|
 |-----------|
 |6|
@@ -2621,7 +2622,7 @@
 |988|
 
 
-##4.2 Kayıp müşterilerin farklı şehirlerdeki dağılımını bulun.
+## 4.2 Find the distribution of these missing customers across different cities.
 |CITY|CITIES_OF_LOST_CUSTOMERS|
 |----|------------------------|
 |OSMANİYE|3|
@@ -2664,7 +2665,8 @@
 |AĞRI|1|
 |SAMSUN|1|
 
-##5.1 Veri limitinin en az %75'ini kullanan müşterileri bulun.
+
+## 5.1 Find the customers who have used at least 75% of their data limit.
 |CUSTOMER_NAME|TARIFF_NAME|DATA_LIMIT|DATA_USAGE|
 |-------------|-----------|----------|----------|
 |Ahmet|Kobiye Destek|20480|19079.55|
@@ -2869,10 +2871,12 @@
 |Ayşegül|Genç Dinamik|10240|8934.59|
 
 
-##5.2 Paket limitlerinin (veri, dakika ve SMS) tamamını tüketen müşterileri belirleyin.
-###Herhangi bir çıktı elde edilmedi.
+## 5.2Identify the customers who have completely exhausted all of their package limits (data, minutes, and SMS).
+### This yielded no results.
+No customer has used all the limits in their plan.
 
-##6.1 Ödenmemiş ücretleri olan müşterileri bulun.
+
+## 6.1 Find the customers who have unpaid fees.
 |CUSTOMER_ID|CUSTOMER_NAME|PAYMENT_STATUS|
 |-----------|-------------|--------------|
 |8970|Ahmet|UNPAID|
@@ -3077,7 +3081,9 @@
 |8343|Hakan|UNPAID|
 
 
-##6.2 Tüm ödeme durumlarının farklı tarifeler genelindeki dağılımını bulun.
+
+
+## 6.2 Find the distribution of all payment statuses across the different tariffs.
 |TARIFF_NAME|PAYMENT_STATUS|CUSTOMER_COUNT|
 |-----------|--------------|--------------|
 |Genç Dinamik|LATE|372|
