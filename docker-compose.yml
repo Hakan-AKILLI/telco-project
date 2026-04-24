@@ -1,0 +1,31 @@
+#Burada yazdığımız kodun 3.8 versiyona göre yazıldığını ve ona göre derlenmesi gerektiğini bildiryoruz.
+version: '3.8'
+
+#Docker bir sanal kurar ve sunucunun takma adı telco-db yapar. 
+services:
+  telco-db:
+    #Burada kurulacak bikgisayarın özeliklerini anlatıyoruz.
+    #Boş bir bilgisayar kurmak yerine. Hazır Oracle XE kurulu,hafifletilmiş işletim sistemini indir ve bu sunucuya kur .
+    #Localimize Oracle kurmadana çalıştırmamızı sağlayan satır budur.
+    image: gvenzl/oracle-xe:slim
+    
+    #Oluşan sanal makinenin dışarıdan görünen adıdır
+    container_name: telco-oracle-db
+   
+    #Docker ayağa kalkarken bu değişkenlere bakar ve otomatik olarak senin için telco_admin adında bir kullanıcı yaratıp şifresini telco123 yapar.
+    environment:
+      - ORACLE_PASSWORD=oracle   
+      - APP_USER=telco_admin     
+      - APP_USER_PASSWORD=telco123 
+   
+    #Sol taraf ki port bizim bilgisayarımzda ki porttur. Dbeaver burada çalışır.
+    #Sağ taraf ki port docker'da ki portur.Oracle bu portta çalışır.
+    #Burada eşleştirme yaparak atılan sorgunun DBeaver'dan çıkıp Docker'ın içine girmesini sağlıyoruz.
+    ports:
+      - "1521:1521"
+    
+    #Volume Mapping
+    #Burada repomuzdan indirdiğimiz  TABLE_CREATION_SCRIPTS.sql dosyasını alıe ve kurduğumuz ortamda çalıştırır.
+    #Bu dosya tablo oluşturacak SQL kodlarını içerdiği iiçin veri tabınımız otomatik kurulur.
+    volumes:
+      - ./TABLE_CREATION_SCRIPTS.sql:/container-entrypoint-initdb.d/01_TABLE_CREATION_SCRIPTS.sql
