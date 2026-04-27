@@ -5,11 +5,11 @@
 --1.1 'Kobiye Destek' tarifesine abone olan müşterileri listeleyin.
 --Müşteri bilgisi ve tarife ismi farklı tablolarda olduğu için öncelikle join kullanarak bu iki tabloyu birleştirdik.
 --Burada CUSTOMERS tablosundaki primay key ile TARIFFS tablsoundaki foreign keyi bağlamış olduk.
---Ardından Where keywordünü kullanarak sadece tarife ID' si 4 (kobiye destek tarifesinin ID'si) olan satırları listeledik.
+--Ardından Where keywordünü kullanarak sadece tarifesi 'Kobiye Destek' olan satırları listeledik.
 SELECT c.CUSTOMER_ID, c.CUSTOMER_NAME, c.SIGNUP_DATE,t.TARIFF_NAME
 FROM CUSTOMERS c 
 JOIN TARIFFS t ON t.TARIFF_ID = c.TARIFF_ID 
-WHERE c.TARIFF_ID = 4;
+WHERE t.TARIFF_NAME = 'Kobiye Destek';
 
 --1.2 Bu tarifeye abone olan en yeni müşteriyi bulun.
 --1.1'deki sorgunun mantığını koruyarak.Bu sorgunun üzerinde yeni kontroller eklendi.
@@ -138,7 +138,7 @@ JOIN MONTHLY_USAGES m ON c.CUSTOMER_ID = m.CUSTOMER_ID
 JOIN TARIFFS t ON c.TARIFF_ID = t.TARIFF_ID
 GROUP BY t.TARIFF_NAME, m.PAYMENT_STATUS
 ORDER BY t.TARIFF_NAME;
-  
+
   
   
   
