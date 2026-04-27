@@ -43,26 +43,18 @@ WHERE c.SIGNUP_DATE = (
     FROM CUSTOMERS)
 
 
-
-
 --3.2 Bu ilk müşterilerin farklı şehirlerdeki dağılımını ve her şehir için toplam sayıyı bulun.
---Burada OLDEST_CUSTOMERS diye bir View oluşturmak yerine with yapısı kullanıldı.
---Sebebi ise wiew bir kayıt olarak tutulurken. With işleminde oluşan tablo sorgu sırasında geçici bir süre bellekte tutulur.
---Birinci kısımda 3.1' deki sorgunun mantığı korunarak With ile OLDEST_CUSTOMERS adı verilerek bir süre bellekte tutuldu.
---Ikinci ksımda bellekteki OLDEST_CUSTOMERS tablosunda işlemler yapıldı.
---Bu işlemlerde şehriler GROUP BY ile gruplandı ve COUNT ile sayılarak müşterilerin şehirledeki dağılımı bulundu.
-WITH OLDEST_CUSTOMERS AS (
-SELECT c.CUSTOMER_ID, c.CUSTOMER_NAME, c.CITY, c.SIGNUP_DATE
-FROM CUSTOMERS c
-WHERE c.SIGNUP_DATE = (
-    SELECT MIN(SIGNUP_DATE) 
-    FROM CUSTOMERS)
-)
-SELECT CITY, 
+--Burada 3.1'in çözümündeki mantık korundu.
+--GROUP BY ve COUNT kullanrak şehirlein dağılımı bulundu 
+SELECT CITY,
 COUNT(*) AS CUSTOMER_COUNT
-FROM OLDEST_CUSTOMERS
+FROM CUSTOMERS
+WHERE SIGNUP_DATE = (
+       SELECT MIN(SIGNUP_DATE) 
+       FROM CUSTOMERS)
 GROUP BY CITY
 ORDER BY CUSTOMER_COUNT DESC;
+
 
 --4.1 Bir ekleme hatası meydana gelmiş ve bazı müşterilerin aylık kayıtları eksiktir. Bu eksik müşterilerin kimliklerini (ID) belirleyin. 
 --Burada RIGHT/LEFT JOIN kullanmak mantıklı olandı.
@@ -124,7 +116,7 @@ SELECT c.CUSTOMER_ID ,c.CUSTOMER_NAME,m.PAYMENT_STATUS
 FROM CUSTOMERS c 
 JOIN MONTHLY_USAGES m ON C.CUSTOMER_ID= m.CUSTOMER_ID 
 WHERE m.PAYMENT_STATUS ='UNPAID';
-  
+
   
 --6.2 Tüm ödeme durumlarının farklı tarifeler genelindeki dağılımını bulun.
 --Müşteri bilgisi ,ödeme durumu ve tarife ismi farklı tablolarda olduğu için öncelikle join kullanarak üç tabloyu birleştirdik.
@@ -132,13 +124,13 @@ WHERE m.PAYMENT_STATUS ='UNPAID';
 --Ardından Tarife ismi ve ödeme durumuna göre grupladık ve Count sayarak CUSTOMER_COUNT sütunu ekledik.
 --Order by ile tarife ismine sonucu sıraladık.
 SELECT t.TARIFF_NAME, m.PAYMENT_STATUS, 
-COUNT(*) AS CUSTOMER_COUNT
+COUNT(t.TARIFF_NAME) AS CUSTOMER_COUNT
 FROM CUSTOMERS c 
 JOIN MONTHLY_USAGES m ON c.CUSTOMER_ID = m.CUSTOMER_ID
 JOIN TARIFFS t ON c.TARIFF_ID = t.TARIFF_ID
 GROUP BY t.TARIFF_NAME, m.PAYMENT_STATUS
 ORDER BY t.TARIFF_NAME;
-
+  
   
   
   
